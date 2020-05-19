@@ -1,8 +1,8 @@
 const popup = document.getElementById('modal_main');
-const popupClose = document.getElementsByClassName('modal__close');
-const popupSwitch = document.getElementsByClassName('show-success');
+const popupClose = Array.from(document.getElementsByClassName('modal__close'));
+const popupSwitch = document.querySelector('.show-success');
 const popupSucess = document.getElementById('modal_success');
-const buttonSucess = document.getElementsByClassName('btn_success');
+const buttonSucess = document.querySelector('.btn_success');
 
 function closeAllPopups() {
     popup.className = "modal";
@@ -10,17 +10,17 @@ function closeAllPopups() {
 }
 
 
-for (let i=0; i < 3; i++) {
-    popupClose[i].onclick = () => {
+for (let item of popupClose) {
+    item.onclick = () => {
       closeAllPopups()
     }
 }
 
-popupSwitch[0].onclick = () => {
+popupSwitch.onclick = () => {
     popupSucess.className = "modal modal_active";
 }
 
-buttonSucess[0].onclick = () => {
+buttonSucess.onclick = () => {
     closeAllPopups()
 }
 
