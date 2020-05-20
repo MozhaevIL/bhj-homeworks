@@ -4,6 +4,7 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timeRemaining = container.querySelector('.timer')
 
     this.reset();
 
@@ -16,14 +17,20 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+  
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    addEventListener ('keypress', (event) => {
+      const inputSymbol = event.key.toLowerCase();
+      const currentSymbol = this.currentSymbol.textContent.toLowerCase();
+      
+      if(inputSymbol === currentSymbol) {
+        this.success();
+      } else {
+        this.fail();
+      }
+      
+      }
+    )
   }
 
   success() {
@@ -50,8 +57,8 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
-
     this.renderWord(word);
+    this.timer(word);
   }
 
   getWord() {
@@ -63,7 +70,7 @@ class Game {
         'kitty',
         'rock',
         'youtube',
-        'popcorn',
+        'я люблю popcorn',
         'cinema',
         'love',
         'javascript'
@@ -84,7 +91,22 @@ class Game {
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
   }
+
+  timer(word) { //пока не придумал, как сбросить таймер в случае успеха или при перезапуске игры
+    this.timeRemaining.textContent = `${word.length} сек.`;
+    let secondsRemain = word.length;
+    const timerID = setInterval(() => {
+      secondsRemain -=1;
+      this.timeRemaining.textContent = `${secondsRemain} сек.`;
+      if(secondsRemain === 0) {
+        this.fail();
+        clearInterval(timerID);
+      } 
+    }, 1000);
+  }
 }
+
+
 
 new Game(document.getElementById('game'))
 
