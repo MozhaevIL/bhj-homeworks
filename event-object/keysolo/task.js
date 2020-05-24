@@ -95,7 +95,7 @@ class Game {
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
   }
 
-  timer(word) { //загнал таймер в глобал скоуп. Не знаю, насколько это допустимо.
+  timer(word) { 
     this.timeRemaining.textContent = `${word.length} сек.`;
     let secondsRemain = word.length;
     this.stopwatch = setInterval(() => {
