@@ -4,7 +4,7 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
-    this.timeRemaining = container.querySelector('.timer')
+    this.timeRemaining = container.querySelector('.timer');
 
     this.reset();
 
@@ -58,6 +58,7 @@ class Game {
   setNewWord() {
     const word = this.getWord();
     this.renderWord(word);
+    this.timerReset();
     this.timer(word);
   }
 
@@ -92,17 +93,20 @@ class Game {
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
   }
 
-  timer(word) { //пока не придумал, как сбросить таймер в случае успеха или при перезапуске игры
+  timer(word) { //загнал таймер в глобал скоуп. Не знаю, насколько это допустимо.
     this.timeRemaining.textContent = `${word.length} сек.`;
     let secondsRemain = word.length;
-    const timerID = setInterval(() => {
+    window.stopwatch = setInterval(() => {
       secondsRemain -=1;
       this.timeRemaining.textContent = `${secondsRemain} сек.`;
       if(secondsRemain === 0) {
         this.fail();
-        clearInterval(timerID);
       } 
     }, 1000);
+  }
+
+  timerReset() {
+    clearInterval(window.stopwatch);
   }
 }
 
