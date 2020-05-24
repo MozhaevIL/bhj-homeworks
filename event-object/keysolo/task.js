@@ -1,3 +1,4 @@
+"use strict"
 class Game {
   constructor(container) {
     this.container = container;
@@ -5,6 +6,7 @@ class Game {
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
     this.timeRemaining = container.querySelector('.timer');
+    this.stopwatch;
 
     this.reset();
 
@@ -96,7 +98,7 @@ class Game {
   timer(word) { //загнал таймер в глобал скоуп. Не знаю, насколько это допустимо.
     this.timeRemaining.textContent = `${word.length} сек.`;
     let secondsRemain = word.length;
-    window.stopwatch = setInterval(() => {
+    this.stopwatch = setInterval(() => {
       secondsRemain -=1;
       this.timeRemaining.textContent = `${secondsRemain} сек.`;
       if(secondsRemain === 0) {
@@ -106,7 +108,7 @@ class Game {
   }
 
   timerReset() {
-    clearInterval(window.stopwatch);
+    clearInterval(this.stopwatch);
   }
 }
 
