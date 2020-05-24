@@ -5,8 +5,8 @@ const popupSucess = document.getElementById('modal_success');
 const buttonSucess = document.querySelector('.btn_success');
 
 function closeAllPopups() {
-    popup.className = "modal";
-    popupSucess.className = "modal"
+    popup.classList.remove("modal_active");
+    popupSucess.classList.remove("modal_active");
 }
 
 
@@ -17,12 +17,13 @@ for (let item of popupClose) {
 }
 
 popupSwitch.onclick = () => {
-    popupSucess.className = "modal modal_active";
+    closeAllPopups();
+    popupSucess.classList.add("modal_active");
 }
 
 buttonSucess.onclick = () => {
     closeAllPopups()
 }
 
-popup.className = "modal modal_active";
+popup.classList.add("modal_active");
 
