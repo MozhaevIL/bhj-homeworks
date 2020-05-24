@@ -1,18 +1,25 @@
-const menuLink = document.getElementsByClassName('menu__link');
-const menuItems = document.getElementsByClassName('menu__item');
-const menuSubs = document.querySelectorAll("ul.menu_sub");
+const menuItems = Array.from(document.getElementsByClassName('menu__item'));
+const menuSubs = Array.from(document.querySelectorAll("ul.menu_sub"));
+
+function closeMenu(menu) {
+  menu.classList.remove("menu_active");
+}
+
 
 for (let menuItem of menuItems) {
     const subMenu = menuItem.querySelector("ul.menu_sub");
-    menuItem.onclick = () => {
+    const menuLink = menuItem.querySelector("a.menu__link");
+    menuLink.onclick = () => {
     if (subMenu) {
-        for (menuSubChild of menuSubs) {
-          menuSubChild.className = "menu menu_sub";
-        }
-        subMenu.className = "menu menu_sub menu_active";
+        if(subMenu.classList.contains("menu_active")) {
+          closeMenu(subMenu);
+          } else {
+            for (menuSubChild of menuSubs) {
+              closeMenu(menuSubChild);
+             }
+           subMenu.classList.add("menu_active");
+          }
         return false;
+      } 
     }
   }
-}
-
-//не понял, в чем суть задания с двумя меню. Просто добавить в html дополнительный класс к каждому меню и прописать в селекторах классов по два класса?
