@@ -46,7 +46,7 @@ function ifIdle() {
 
 chatBadge.addEventListener("click", () => {
     chatWidget.classList.add("chat-widget_active");
-    idleTimer = setTimeout(ifIdle, 5000);
+    idleTimer = setTimeout(ifIdle, 30000);
     }
 )
 
@@ -60,7 +60,7 @@ chatInput.addEventListener("keyup", event => {
         `
         scrollToLast();
         clearTimeout(idleTimer);
-        idleTimer = setTimeout(ifIdle, 5000);
+        idleTimer = setTimeout(ifIdle, 30000);
         chatInput.value = null;
 
         setTimeout(getAnswer, 1000);
