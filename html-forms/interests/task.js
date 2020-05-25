@@ -9,18 +9,38 @@ for (let interest of interests)  {
     if(subInterests.length > 0) {
         
         interestCheckbox.addEventListener("change", () => {
-            console.log(subInterestsCheckboxes);
             if(interestCheckbox.checked) {
                 for (let subInterestsCheckbox of subInterestsCheckboxes) {
                  subInterestsCheckbox.checked = true;
                 }
             }  else {
-                for (subInterestsCheckbox of subInterestsCheckboxes) {
+                for (let subInterestsCheckbox of subInterestsCheckboxes) {
                   subInterestsCheckbox.checked = false;
                 }
             }
         }
         
         )
-    }
+
+        for(let subInterestsCheckbox of subInterestsCheckboxes) {
+            subInterestsCheckbox.addEventListener("change", () => {
+                if(!subInterestsCheckbox.checked) {
+                    interestCheckbox.checked = false;
+                } else {
+                    let checkedCounter = 0;
+                    for(let subInterestsCheckbox of subInterestsCheckboxes) {
+                        if(subInterestsCheckbox.checked) {
+                            checkedCounter++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if(checkedCounter === subInterestsCheckboxes.length) {
+                        interestCheckbox.checked = true;
+                    }
+
+                }
+            })
+        }
+    } 
 }
