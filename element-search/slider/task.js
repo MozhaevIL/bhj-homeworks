@@ -1,10 +1,25 @@
 const sliderItems = Array.from(document.getElementsByClassName("slider__item"));
 let activeItemIndex = 0;
+const dots = Array.from(document.getElementsByClassName("slider__dot"));
 
 function showActiveItem(index) {
+    console.log(index);
     const lastActiveItem = document.querySelector(".slider__item_active");
+    const lastActiveDot = document.querySelector(".slider__dot_active");
     lastActiveItem.classList.remove("slider__item_active");
+    lastActiveDot.classList.remove("slider__dot_active");
     sliderItems[index].classList.add("slider__item_active");
+    dots[index].classList.add("slider__dot_active");
+
+}
+
+
+
+for (let dot of dots) {
+    dot.onclick = () => {
+        activeItemIndex = dots.indexOf(dot);
+        showActiveItem(activeItemIndex);
+    }
 }
 
 const prevButton = document.querySelector(".slider__arrow_prev");
@@ -25,15 +40,4 @@ nextButton.onclick = () => {
         activeItemIndex += 1;
     }
     showActiveItem(activeItemIndex);
-}
-
-
-const dots = Array.from(document.getElementsByClassName("slider__dot"));
-for (let dot of dots) {
-    dot.onclick = () => {
-        dots[activeItemIndex].classList.remove("slider__dot_active");
-        dot.classList.add("slider__dot_active");
-        activeItemIndex = dots.indexOf(dot);
-        showActiveItem(activeItemIndex);
-    }
 }
